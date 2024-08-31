@@ -8,4 +8,6 @@ urlpatterns = [
     # Root URL (/): The root URL '/' is the top-level URL of a web application. 
     # It is the first URL that is loaded when you visit a domain without specifying any additional path. 
     # For example, if your domain is example.com, navigating to example.com/ will take you to the homepage.
+
+    path('register/', RegisterService.as_view(), name='register'),
 ]

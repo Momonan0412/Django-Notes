@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from .forms import CustomUserCreationForm
 # Create your views here.
 # Class-Based views (CBVs)
 
@@ -30,4 +30,16 @@ class LoginService(View):
         # redirect('/some-path/')
         # # Redirect to an absolute URL
         # redirect('https://www.example.com/')
+class RegisterService(View):
+    def get(self, request):
+        return render(request, 'register.html', {'form': CustomUserCreationForm()})
+    def post(self, request):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully!')
+            return redirect('login')
+        else:
+            messages.error(request, 'Please correct the error below.')
+        return render(request, 'register.html', {'form': form})
         
